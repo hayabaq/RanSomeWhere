@@ -5,6 +5,8 @@ The code is originally forked and built on top of [this](https://github.com/bing
 
 # Future plans
 - Exfilterate encrypted key 
-- overwrite the key with multiple values to avoid recovery using forensic tools
-- autorun 
-- more test and debugging :)
+- Encrypt part of files to utilize the use of resource 
+- Overwrite the key with multiple values to avoid recovery using forensic tools
+- Autorun (Add persistance)
+- Optimization (reconstruct the code structure)
+- More test and debugging :)
